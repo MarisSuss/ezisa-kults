@@ -20,7 +20,7 @@ class LanguagePrefixMiddleware
         if (in_array($language, config('app.locales'))) {
             app()->setLocale($language);
         } else {
-            abort(Response::HTTP_NOT_FOUND);
+            return redirect('/lv');
         }
 
         return $next($request);
