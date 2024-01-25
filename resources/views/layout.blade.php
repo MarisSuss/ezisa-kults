@@ -23,7 +23,7 @@
         <div class="flex space-x-4">
             @auth
                 <a href="{{ url(app()->getLocale()) . '/posts/create' }}" class="text-lg font-semibold">{{ __('layout.post') }}</a>
-                <a href="{{ url(app()->getLocale()) . '/user' }}" class="text-lg font-semibold">Welcome, {{ Auth::user()->name }}</a>
+                <a href="{{ url(app()->getLocale()) . '/profile' }}" class="text-lg font-semibold">Welcome, {{ Auth::user()->name }}</a>
                 <a href="{{ url(app()->getLocale()) . '/logout' }}" class="text-lg font-semibold">{{ __('layout.logout') }}</a>
             @endauth
 

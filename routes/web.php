@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 
 // Redirect to the default language
 Route::get('/', function () {
@@ -23,12 +23,12 @@ Route::group(['prefix' => '{language}'], function () {
     // Home page
     Route::get('/', HomeController::class);
 
-    // Welcome page
-    Route::get('welcome', WelcomeController::class);
-
     // Registration
     Route::get('register', [RegistrationController::class, 'create'])->middleware('guest');
     Route::post('register', [RegistrationController::class, 'store'])->middleware('guest');
+
+    // Profile
+    Route::get('profile', [ProfileController::class, 'show'])->middleware('auth');
 
     // Login
     Route::get('login', [LoginController::class, 'create'])->middleware('guest')->name('en' . '.login');
