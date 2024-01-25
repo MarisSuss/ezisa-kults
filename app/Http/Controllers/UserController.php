@@ -14,11 +14,11 @@ class UserController extends Controller
     }
 
     // Store a new user
-    public function store()
-    {
+    public function store($language)
+    {     
         // Validate the user
         $attributes = request()->validate([
-            'name' => ['required', 'min:3', 'max:255', 'unique:users,name'],
+            'name' => ['required', 'min:3', 'max:20', 'unique:users,name'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', 'min:7', 'max:255'],
         ]);
@@ -26,9 +26,14 @@ class UserController extends Controller
         // Create and save the user
         $user = User::create($attributes);
 
-
+        // Sign the user in
+        auth()->login($user);
 
         // Return to home page
-        return redirect('/')->with('success', 'Your account has been created!');
+        if ($language == 'lv') {
+            return redirect('/lv')->with('success', 'Jūsu konts ir izveidots!');
+        } else {
+            return redirect('/en')->with('success', 'Your account has been created!');
+        }
     }
 }

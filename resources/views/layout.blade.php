@@ -16,9 +16,15 @@
         <a href="{{ url(app()->getLocale()) . '/register' }}" class="text-lg font-semibold">{{ __('layout.register') }}</a>
 
         <div class="flex space-x-4">
-            <a href="/lv" class="hover:underline">LV</a>
+            <form action="{{ url('/lv/change-language') }}" method="POST">
+                @csrf
+                <button type="submit" class="hover:underline">LV</button>
+            </form>
             <p>/</p>
-            <a href="/en" class="hover:underline">EN</a>
+            <form action="{{ url('/en/change-language') }}" method="POST">
+                @csrf
+                <button type="submit" class="hover:underline">EN</button>
+            </form>
         </div>
     </nav>
 
