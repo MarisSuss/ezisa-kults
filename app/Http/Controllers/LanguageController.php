@@ -17,11 +17,7 @@ class LanguageController extends Controller
         $segments = explode('/', trim($path, '/'));
 
         // Modify the first segment based on the selected language
-        if ($language == 'lv') {
-            $segments[0] = 'lv';
-        } else {
-            $segments[0] = 'en';
-        }
+        $segments[0] = $language;
 
         // Rebuild the URL with the modified segments
         $modifiedUrl = url(implode('/', $segments));

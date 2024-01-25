@@ -2,7 +2,9 @@
 
 return [
 
-'title' => 'Ezīša kults',
+'title' => 'Ezīša Kults',
 'register' => 'Reģistrēties',
+'login' => 'Ienākt',
+'logout' => 'Iziet',
 
 ];

@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
-class UserController extends Controller
+class RegistrationController extends Controller
 {
     // Show the registration form
     public function create()
     {
-        return view('user.create');
+        return view('registration.create');
     }
 
     // Store a new user
@@ -30,10 +30,6 @@ class UserController extends Controller
         auth()->login($user);
 
         // Return to home page
-        if ($language == 'lv') {
-            return redirect('/lv')->with('success', 'Jūsu konts ir izveidots!');
-        } else {
-            return redirect('/en')->with('success', 'Your account has been created!');
-        }
+        return redirect("/$language")->with('success', __('success.registered'));
     }
 }

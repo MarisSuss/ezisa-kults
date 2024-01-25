@@ -3,8 +3,10 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\RegistrationController;
 
 // Redirect to the default language
 Route::get('/', function () {
@@ -24,9 +26,15 @@ Route::group(['prefix' => '{language}'], function () {
     Route::get('welcome', WelcomeController::class);
 
     // Registration
-    Route::get('register', [UserController::class, 'create']);
-    Route::post('register', [UserController::class, 'store']);
+    Route::get('register', [RegistrationController::class, 'create'])->middleware('guest');
+    Route::post('register', [RegistrationController::class, 'store'])->middleware('guest');
 
+    // Login
+    Route::get('login', [LoginController::class, 'create'])->middleware('guest')->name('login');
+    Route::post('login', [LoginController::class, 'authenticate'])->middleware('guest');
+
+    // Logout
+    Route::get('logout', LogoutController::class)->middleware('auth');
 
 })->where([
     'language' => 'lv|en',
