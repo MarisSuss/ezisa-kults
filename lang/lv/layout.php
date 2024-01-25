@@ -6,5 +6,6 @@ return [
 'register' => 'Reģistrēties',
 'login' => 'Ienākt',
 'logout' => 'Iziet',
+'post' => 'Izveidot rakstu',
 
 ];

@@ -15,33 +15,37 @@
 
 <body class="bg-gray-100 text-black font-roboto">
 
-    <nav class="flex justify-between items-center p-4 bg-black text-white">
-        <a href="{{ url(app()->getLocale()) }}" class="text-lg font-semibold">{{ __('layout.title') }}</a>
+    <nav class="bg-black text-white p-4 flex justify-between items-center">
+        <!-- Larger Title -->
+        <a href="{{ url(app()->getLocale()) }}" class="text-2xl font-semibold">{{ __('layout.title') }}</a>
 
-        <!-- Login/ Register -->
-        @guest
-            <div>
-                <a href="{{ url(app()->getLocale()) . '/login' }}" class="text-lg font-semibold">{{ __('layout.login') }} /</a>
-                <a href="{{ url(app()->getLocale()) . '/register' }}" class="text-lg font-semibold">{{ __('layout.register') }}</a>
-            </div>
-        @endguest
-
-        <!-- Profile/ Logout -->
-        @auth
-                <a href="{{ url(app()->getLocale()) . '/user' }}" class="text-lg font-semibold">{{ Auth::user()->name }}</a>
-                <a href="{{ url(app()->getLocale()) . '/logout' }}" class="text-lg font-semibold">{{ __('layout.logout') }}</a>  
-        @endauth
-
+        <!-- Navigation Links -->
         <div class="flex space-x-4">
-            <form action="{{ url('/lv/change-language') }}" method="POST">
-                @csrf
-                <button type="submit" class="hover:underline">LV</button>
-            </form>
-            <p>/</p>
-            <form action="{{ url('/en/change-language') }}" method="POST">
-                @csrf
-                <button type="submit" class="hover:underline">EN</button>
-            </form>
+            @auth
+                <a href="{{ url(app()->getLocale()) . '/posts/create' }}" class="text-lg font-semibold">{{ __('layout.post') }}</a>
+                <a href="{{ url(app()->getLocale()) . '/user' }}" class="text-lg font-semibold">Welcome, {{ Auth::user()->name }}</a>
+                <a href="{{ url(app()->getLocale()) . '/logout' }}" class="text-lg font-semibold">{{ __('layout.logout') }}</a>
+            @endauth
+
+            @guest
+                <div>
+                    <a href="{{ url(app()->getLocale()) . '/login' }}" class="text-lg font-semibold">{{ __('layout.login') }} /</a>
+                    <a href="{{ url(app()->getLocale()) . '/register' }}" class="text-lg font-semibold">{{ __('layout.register') }}</a>
+                </div>
+            @endguest
+
+            <!-- Language Switch Buttons -->
+            <div class="flex space-x-2">
+                <form action="{{ url('/lv/change-language') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="hover:underline">LV</button>
+                </form>
+                <p>/</p>
+                <form action="{{ url('/en/change-language') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="hover:underline">EN</button>
+                </form>
+            </div>
         </div>
     </nav>
 

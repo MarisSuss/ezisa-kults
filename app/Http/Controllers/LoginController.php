@@ -24,8 +24,9 @@ class LoginController extends Controller
             return redirect("/$language")->with('success', __('success.logged_in'));
         }
 
-        return back()->withErrors([
+        return back()
+        ->withErrors([
             'email' => __('auth.failed'),
-        ]);
+        ])->withInput();
     }
 }

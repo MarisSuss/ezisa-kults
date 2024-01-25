@@ -6,5 +6,6 @@ return [
 'register' => 'Register',
 'login' => 'Login',
 'logout' => 'Logout',
+'post' => 'Create a post',
 
 ];
