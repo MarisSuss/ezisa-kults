@@ -40,7 +40,8 @@ Route::group(['prefix' => '{language}'], function () {
     // Posts
     Route::get('posts/create', [PostController::class, 'create'])->middleware('auth');
     Route::post('posts/create', [PostController::class, 'store'])->middleware('auth');
-
+    Route::get('posts/{slug}', [PostController::class, 'show']);
+    
 })->where([
     'language' => 'lv|en',
 ]);

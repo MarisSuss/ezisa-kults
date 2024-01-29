@@ -44,4 +44,13 @@ class PostController extends Controller
 
         return redirect('/')->with('success', 'Post created successfully!');
     }
+
+    public function show($language, $slug)
+    {     
+        $post = Post::where('slug', $slug)->firstOrFail();
+        return view('posts.show',[
+                'post' => $post,
+                'language' => $language,
+        ]);
+    }
 }
