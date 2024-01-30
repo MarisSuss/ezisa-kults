@@ -22,7 +22,11 @@ class PostController extends Controller
         // validate the form
         $attributes = request()->validate([
             'title_lv' => ['required', 'min:1', 'max:50'],
-            'title_en' => ['required', 'min:1', 'max:50']
+            'title_en' => ['required', 'min:1', 'max:50'],
+            'content_lv' => ['required'],
+            'content_en' => ['required'],
+            'category_name_lv' => ['required', 'min:1', 'max:20'],
+            'category_name_en' => ['required', 'min:1', 'max:20']
         ]);
 
         // create slug from name
@@ -41,13 +45,6 @@ class PostController extends Controller
         $attributes['date'] = date('Y-m-d');
         $attributes['slug'] = $slug;
         $attributes['user_id'] = auth()->id();
-
-        // validate category
-
-        request()->validate([
-            'category_name_lv' => ['required', 'min:1', 'max:50'],
-            'category_name_en' => ['required', 'min:1', 'max:50']
-        ]);
 
         // make a category slug
         $categorySlug = strtolower(str_replace(' ', '-', request('category_name_en')));
