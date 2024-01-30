@@ -8,6 +8,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 
 // Redirect to the default language
 Route::get('/', function () {
@@ -40,8 +41,12 @@ Route::group(['prefix' => '{language}'], function () {
     // Posts
     Route::get('posts/create', [PostController::class, 'create'])->middleware('auth');
     Route::post('posts/create', [PostController::class, 'store'])->middleware('auth');
-    Route::get('posts/{slug}', [PostController::class, 'show']);
-    
+    Route::get('posts/{post:slug}', [PostController::class, 'show']);
+
+    // Categories
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('categories/{category:slug}', [CategoryController::class, 'show']);
+
 })->where([
     'language' => 'lv|en',
 ]);

@@ -10,9 +10,10 @@ class ProfileController extends Controller
     public function show($language)
     {
         $id = auth()->user()->id;
+        $posts = Post::where('user_id', $id)->get();
         
         return view('profile.user', [
-            'posts' => Post::where('user_id', $id)->get(),
+            'posts' => $posts,
             'language' => $language,
         ]);
     }

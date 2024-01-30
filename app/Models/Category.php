@@ -14,7 +14,7 @@ class Category extends Model
         'title_en',
         'slug',
         'is_pinned',
-    ];
+    ];  
 
     public function posts() {
         return $this->hasMany(Post::class);

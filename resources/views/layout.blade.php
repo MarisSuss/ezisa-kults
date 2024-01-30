@@ -15,7 +15,7 @@
 
 <body class="bg-gray-100 text-black font-roboto">
 
-    <nav class="bg-black text-white p-4 flex justify-between items-center">
+    <nav class="bg-green-900 text-white p-4 flex justify-between items-center">
         <!-- Larger Title -->
         <a href="{{ url(app()->getLocale()) }}" class="text-2xl font-semibold">{{ __('layout.title') }}</a>
 
@@ -23,7 +23,7 @@
         <div class="flex space-x-4">
             @auth
                 <a href="{{ url(app()->getLocale()) . '/posts/create' }}" class="text-lg font-semibold">{{ __('layout.post') }}</a>
-                <a href="{{ url(app()->getLocale()) . '/profile' }}" class="text-lg font-semibold">Welcome, {{ Auth::user()->name }}</a>
+                <a href="{{ url(app()->getLocale()) . '/profile' }}" class="text-lg font-semibold">{{ __('layout.welcome') }}, {{ Auth::user()->name }}</a>
                 <a href="{{ url(app()->getLocale()) . '/logout' }}" class="text-lg font-semibold">{{ __('layout.logout') }}</a>
             @endauth
 
@@ -48,7 +48,14 @@
             </div>
         </div>
     </nav>
-
+    
+    <!-- Navbar for Categories -->
+    <nav class="bg-gray-600 text-white p-4 flex justify-between items-center">
+        @foreach ($categories as $category)
+            <a href="{{ url(app()->getLocale() . '/categories/' . $category->slug) }}">{{ $category->title_en }}</a>
+        @endforeach
+        <a href="{{ url(app()->getLocale() . '/categories') }}">More categories</a>
+    </nav>
     <main class="container mx-auto mt-8">
         @yield('content')
     </main>

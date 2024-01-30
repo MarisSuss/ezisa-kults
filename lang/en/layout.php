@@ -7,5 +7,6 @@ return [
 'login' => 'Login',
 'logout' => 'Logout',
 'post' => 'Create a post',
+'welcome' => 'Welcome',
 
 ];

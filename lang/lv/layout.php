@@ -7,5 +7,6 @@ return [
 'login' => 'Ienākt',
 'logout' => 'Iziet',
 'post' => 'Izveidot rakstu',
+'welcome' => 'Sveicināti',
 
 ];

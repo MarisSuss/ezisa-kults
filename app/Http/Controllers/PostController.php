@@ -2,34 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
-    public function create()
+    public function create($language)
     {
-        return view('posts.create');
+        return view('posts.create', [
+            'language' => $language,
+            'categories' => Category::all(),
+        ]);
     }
 
-    public function store()
+    public function store($language)
     {
         // validate the form
         $attributes = request()->validate([
-            'name' => ['required', 'min:1', 'max:50'],
             'title_lv' => ['required', 'min:1', 'max:50'],
-            'title_en' => ['min:1', 'max:50'],
+            'title_en' => ['required', 'min:1', 'max:50']
         ]);
 
         // create slug from name
-        $slug = strtolower(str_replace(' ', '-', $attributes['name']));
+        $slug = strtolower(str_replace(' ', '-', $attributes['title_en']));
 
         // check if slug exists in the database
         $existingSlug = Post::where('slug', $slug)->exists();
 
         if ($existingSlug) {
-            return redirect()->back()->withInput()->withErrors(['name' => 'The name has already been taken.']);
+            return redirect()->back()->withInput()->withErrors(['title_en' => 'The name has already been taken.']);
         }
 
         // add attributes to the array
@@ -39,15 +42,44 @@ class PostController extends Controller
         $attributes['slug'] = $slug;
         $attributes['user_id'] = auth()->id();
 
+        // validate category
+
+        request()->validate([
+            'category_name_lv' => ['required', 'min:1', 'max:50'],
+            'category_name_en' => ['required', 'min:1', 'max:50']
+        ]);
+
+        // make a category slug
+        $categorySlug = strtolower(str_replace(' ', '-', request('category_name_en')));
+
+        // check if category slug exists in the database
+        $existingCategorySlug = Category::where('slug', $categorySlug)->exists();
+
+        // if category slug exists add id to the array
+        if ($existingCategorySlug) {
+            $attributes['category_id'] = Category::where('slug', $categorySlug)->first()->id;
+        } else {
+
+            // if category slug doesn't exist create a new category
+            $category = Category::create([
+                'title_lv' => request('category_name_lv'),
+                'title_en' => request('category_name_en'),
+                'slug' => $categorySlug,
+            ]);
+
+            // add category id to the array
+            $attributes['category_id'] = $category->id;
+        }
+
+
         // create a new post
         Post::create($attributes);
 
-        return redirect('/')->with('success', 'Post created successfully!');
+        return redirect('/' . $language)->with('success', __('success.post_created'));
     }
 
-    public function show($language, $slug)
+    public function show($language, Post $post)
     {     
-        $post = Post::where('slug', $slug)->firstOrFail();
         return view('posts.show',[
                 'post' => $post,
                 'language' => $language,

@@ -4,13 +4,21 @@
   <div class="max-w-2xl mx-auto my-8 p-6 bg-white rounded shadow-md">
     <h1 class="text-3xl font-semibold mb-6">Share your thoughts about this world</h1>
 
-    <form method="POST" action="{{ url(app()->getLocale() . '/posts/create') }}">
+    <form method="POST" action="{{ url($language . '/posts/create') }}">
       @csrf
+      
+      <div class="mb-4">
+        <label for="category_name_lv" class="block text-sm font-medium text-gray-600">Name of the category in Latvian</label>
+        <input type="text" name="category_name_lv" id="category_name_lv" placeholder="e.g., Praising Hedgehog" class="mt-1 p-2 block w-full border rounded-md" value="{{ old('category_name_lv') }}" required>
+        @error('category_name_lv')
+          <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+        @enderror
+      </div>
 
       <div class="mb-4">
-        <label for="name" class="block text-sm font-medium text-gray-600">Name of the post (used in link generation)</label>
-        <input type="text" name="name" id="name" placeholder="e.g., My Great Thoughts" class="mt-1 p-2 block w-full border rounded-md" value="{{ old('name') }}">
-        @error('name')
+        <label for="category_name_en" class="block text-sm font-medium text-gray-600">Name of the category in English</label>
+        <input type="text" name="category_name_en" id="category_name_en" placeholder="e.g., Praising Hedgehog" class="mt-1 p-2 block w-full border rounded-md" value="{{ old('category_name_en') }}" required>
+        @error('category_name_en')
           <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
         @enderror
       </div>
@@ -58,6 +66,7 @@
           </ul>
         </div>
       @endif
+
     </form>
   </div>
 @endsection

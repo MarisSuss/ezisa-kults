@@ -19,11 +19,12 @@ return new class extends Migration
             $table->text('content_lv');
             $table->text('content_en');
             $table->date('date');
-            $table->string('slug');
-            $table->foreignId('user_id')->constrained();
+            $table->integer('likes')->default(0);
+            $table->string('slug')->unique();    
             $table->string('image')->nullable();
-            $table->foreignId('category_id')->constrained();
             $table->boolean('is_pinned')->default(false);
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('category_id')->constrained();              
         });
     }
 
