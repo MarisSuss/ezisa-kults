@@ -30,7 +30,8 @@ class PostController extends Controller
         ]);
 
         // create slug from name
-        $slug = strtolower(str_replace(' ', '-', $attributes['title_en']));
+        $slug = strtolower(preg_replace('/[^a-z]/', '', str_replace(' ', '-', $attributes['title_en'])));
+
 
         if ($slug === 'create') {
             return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);

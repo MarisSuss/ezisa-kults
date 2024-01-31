@@ -39,7 +39,7 @@ class CategoryController extends Controller
             'title_en' => ['required', 'max:20'],
         ]);
 
-        $slug = strtolower(str_replace(' ', '-', $attributes['title_en']));
+        $slug = strtolower(preg_replace('/[^a-z]/', '', $attributes['title_en']));
 
         $existingSlug = Category::where('slug', $slug)->exists();
 
