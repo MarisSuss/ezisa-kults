@@ -29,7 +29,8 @@ Route::group(['prefix' => '{language}'], function () {
     Route::post('register', [RegistrationController::class, 'store'])->middleware('guest');
 
     // Profile
-    Route::get('profile', [ProfileController::class, 'show'])->middleware('auth');
+    Route::get('profile', [ProfileController::class, 'myProfile'])->middleware('auth');
+    Route::get('profile/{user:name}', [ProfileController::class, 'show']);
 
     // Login
     Route::get('login', [LoginController::class, 'create'])->middleware('guest')->name('en' . '.login');
@@ -41,11 +42,16 @@ Route::group(['prefix' => '{language}'], function () {
     // Posts
     Route::get('posts/create', [PostController::class, 'create'])->middleware('auth');
     Route::post('posts/create', [PostController::class, 'store'])->middleware('auth');
+    
     Route::get('posts/{post:slug}', [PostController::class, 'show']);
 
     // Categories
+    Route::get('categories/create', [CategoryController::class, 'create'])->middleware('auth');
+    Route::post('categories/create', [CategoryController::class, 'store'])->middleware('auth');
+
     Route::get('categories', [CategoryController::class, 'index']);
-    Route::get('categories/{category:slug}', [CategoryController::class, 'show']);
+    Route::get('categories/{category:slug}', [CategoryController::class, 'show']);    
+
 
 })->where([
     'language' => 'lv|en',

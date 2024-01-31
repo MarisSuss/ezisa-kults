@@ -9,6 +9,7 @@ class CategoryController extends Controller
 {
     public function index($language) {
         $categories = Category::all();
+
         return view('categories.index', [
             'language' => $language,
             'categories' => $categories
@@ -16,11 +17,46 @@ class CategoryController extends Controller
     }
 
     public function show(string $language, Category $category) {
-        $posts = $category->posts()->get();
+        $posts = $category->posts()->get()->sortByDesc('id')->load('author');
+
         return view('categories.show', [
             'language' => $language,
-            'category' => $category,
-            'posts' => $posts
+            'posts' => $posts,
+            'category' => $category
         ]);
+    }
+
+    public function create($language) {
+        return view('categories.create', [
+            'language' => $language
+        ]);
+    }
+
+    public function store($language) {
+
+        $attributes = request()->validate([
+            'title_lv' => ['required', 'max:20'],
+            'title_en' => ['required', 'max:20'],
+        ]);
+
+        $slug = strtolower(str_replace(' ', '-', $attributes['title_en']));
+
+        $existingSlug = Category::where('slug', $slug)->exists();
+
+        if ($existingSlug) {
+            return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);
+        }
+
+        if ($slug == 'create') {
+            return redirect(url($language . '/categories/create'))->with('error', 'Category name cannot be "create"');
+        }
+
+        Category::create([
+            'title_lv' => $attributes['title_lv'],
+            'title_en' => $attributes['title_en'],
+            'slug' => $slug
+        ]);
+
+        return redirect(url($language . '/categories'));
     }
 }

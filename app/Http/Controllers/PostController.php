@@ -32,11 +32,15 @@ class PostController extends Controller
         // create slug from name
         $slug = strtolower(str_replace(' ', '-', $attributes['title_en']));
 
+        if ($slug = 'create') {
+            return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);
+        }
+
         // check if slug exists in the database
         $existingSlug = Post::where('slug', $slug)->exists();
 
         if ($existingSlug) {
-            return redirect()->back()->withInput()->withErrors(['title_en' => 'The name has already been taken.']);
+            return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);
         }
 
         // add attributes to the array

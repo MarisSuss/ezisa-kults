@@ -1,14 +1,17 @@
 @extends('layout')
 
 @section('content')
-  <p>These are categories</p>
 
+    @auth
+    <a href="{{ url($language . '/categories/create') }}">Create a new category</a>
+    @endauth
+
+    <p class="text-xl font-semibold mb-4">Categories</p>
     <ul>
         @foreach ($categories as $category)
-        <li>
-            <a href="">{{ $category->title_en }}</a>
-        </li>
+            <li class="mb-2">
+                <a href="" class="text-blue-500 hover:underline">{{ $category->title_en }}</a>
+            </li>
         @endforeach
     </ul>
-
 @endsection

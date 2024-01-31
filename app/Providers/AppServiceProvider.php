@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
                 ->limit(7)
                 ->get();
     
-            $view->with('categories', $categories);
+            $view->with('nav_categories', $categories);
         });
     }
 }

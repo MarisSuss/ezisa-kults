@@ -1,8 +1,8 @@
 @extends('layout')
 
 @section('content')
-    <p>This a categorey {{ $category->title_en }}</p>
-  
+  <p>This is user {{ $user->name }}</p>
+
     <ul>
         @foreach ($posts as $post)
         <li>
@@ -10,4 +10,5 @@
         </li>
         @endforeach
     </ul>
+
 @endsection

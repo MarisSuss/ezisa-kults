@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('title_lv');
             $table->string('title_en');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->boolean('is_pinned')->default(false);
         });
     }

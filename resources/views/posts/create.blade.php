@@ -3,7 +3,7 @@
 @section('content')
   <div class="max-w-2xl mx-auto my-8 p-6 bg-white rounded shadow-md">
     <h1 class="text-3xl font-semibold mb-6">Share your thoughts about this world</h1>
-
+    
     <form method="POST" action="{{ url($language . '/posts/create') }}">
       @csrf
       
