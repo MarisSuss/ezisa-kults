@@ -11,20 +11,20 @@
 
         <label for="category_slug" class="block text-sm font-medium text-gray-600">Category</label>
         <select name="category_slug" id="category_slug" class="mt-1 p-2 block w-full border rounded-md" required>
-          <option value="" disabled selected>Select a category</option>
-          @foreach ($categories as $category)
-            <option value="{{ $category->slug }}">{{ $category->title_lv }}</option>
-          @endforeach
+            <option value="" disabled>Select a category</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->slug }}" {{ old('category_slug') == $category->slug ? 'selected' : '' }}>{{ $category->title_lv }}</option>
+            @endforeach
         </select>
 
       @elseif ($language == 'en')
 
         <label for="category_slug" class="block text-sm font-medium text-gray-600">Category</label>
         <select name="category_slug" id="category_slug" class="mt-1 p-2 block w-full border rounded-md" required>
-          <option value="" disabled selected>Select a category</option>
-          @foreach ($categories as $category)
-            <option value="{{ $category->slug }}">{{ $category->title_en }}</option>
-          @endforeach
+            <option value="" disabled>Select a category</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->slug }}" {{ old('category_slug') == $category->slug ? 'selected' : '' }}>{{ $category->title_en }}</option>
+            @endforeach
         </select>
 
       @endif

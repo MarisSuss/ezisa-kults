@@ -34,8 +34,13 @@ class PostController extends Controller
         ]);
 
         // create slug from title in english
-        $slug = strtolower(preg_replace('/[^a-z]/', '', str_replace(' ', '-', $attributes['title_en'])));
+        $slug = strtolower(preg_replace('/[^a-z0-9]/', '', str_replace(' ', '-', $attributes['title_en'])));
+
         if ($slug === 'create') {
+            return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);
+        } else if ($slug === 'edit') {
+            return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);
+        } else if ($slug === '') {
             return redirect()->back()->withInput()->withErrors(['title_en' => 'The title has already been taken.']);
         }
 
