@@ -35,8 +35,8 @@ class CategoryController extends Controller
     public function store($language) {
 
         $attributes = request()->validate([
-            'title_lv' => ['required', 'max:20'],
-            'title_en' => ['required', 'max:20'],
+            'title_lv' => ['required', 'max:20', 'min:1'],
+            'title_en' => ['required', 'max:20', 'min:1'],
         ]);
 
         $slug = strtolower(preg_replace('/[^a-z]/', '', $attributes['title_en']));

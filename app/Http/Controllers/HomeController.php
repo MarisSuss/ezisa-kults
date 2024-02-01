@@ -7,11 +7,10 @@ use App\Models\Category;
 
 class HomeController extends Controller
 {
-    public function __invoke()
+    public function __invoke($language)
     {
-        $categories = Category::all();
         return view('home', [
-            'categories' => $categories,
+            'language' => $language
         ]);
     }
 }

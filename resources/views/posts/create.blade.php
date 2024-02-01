@@ -7,21 +7,28 @@
     <form method="POST" action="{{ url($language . '/posts/create') }}">
       @csrf
       
-      <div class="mb-4">
-        <label for="category_name_lv" class="block text-sm font-medium text-gray-600">Name of the category in Latvian</label>
-        <input type="text" name="category_name_lv" id="category_name_lv" placeholder="e.g., Praising Hedgehog" class="mt-1 p-2 block w-full border rounded-md" value="{{ old('category_name_lv') }}" required>
-        @error('category_name_lv')
-          <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-        @enderror
-      </div>
+      @if ($language == 'lv')
 
-      <div class="mb-4">
-        <label for="category_name_en" class="block text-sm font-medium text-gray-600">Name of the category in English</label>
-        <input type="text" name="category_name_en" id="category_name_en" placeholder="e.g., Praising Hedgehog" class="mt-1 p-2 block w-full border rounded-md" value="{{ old('category_name_en') }}" required>
-        @error('category_name_en')
-          <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-        @enderror
-      </div>
+        <label for="category_slug" class="block text-sm font-medium text-gray-600">Category</label>
+        <select name="category_slug" id="category_slug" class="mt-1 p-2 block w-full border rounded-md" required>
+          <option value="" disabled selected>Select a category</option>
+          @foreach ($categories as $category)
+            <option value="{{ $category->slug }}">{{ $category->title_lv }}</option>
+          @endforeach
+        </select>
+
+      @elseif ($language == 'en')
+
+        <label for="category_slug" class="block text-sm font-medium text-gray-600">Category</label>
+        <select name="category_slug" id="category_slug" class="mt-1 p-2 block w-full border rounded-md" required>
+          <option value="" disabled selected>Select a category</option>
+          @foreach ($categories as $category)
+            <option value="{{ $category->slug }}">{{ $category->title_en }}</option>
+          @endforeach
+        </select>
+
+      @endif
+
 
       <div class="mb-4">
         <label for="title_lv" class="block text-sm font-medium text-gray-600">Title in Latvian</label>
