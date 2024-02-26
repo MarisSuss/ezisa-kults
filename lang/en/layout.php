@@ -8,5 +8,6 @@ return [
 'logout' => 'Logout',
 'post' => 'Create a post',
 'welcome' => 'Welcome',
+'search' => 'Search...',
 
 ];

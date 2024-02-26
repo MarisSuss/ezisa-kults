@@ -8,5 +8,6 @@ return [
 'logout' => 'Iziet',
 'post' => 'Izveidot rakstu',
 'welcome' => 'Sveicināti',
+'search' => 'Meklēt...',
 
 ];

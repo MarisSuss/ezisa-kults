@@ -20,7 +20,16 @@
             <!-- Larger Title -->
             <a href="{{ url(app()->getLocale()) }}" class="text-2xl font-semibold">{{ __('layout.title') }}</a>
 
-            <!-- Navigation Links -->
+            <!-- Search -->
+            <div>
+                <form action="{{ url(app()->getLocale()) . '/search' }}" method="GET" class="flex space x-4">
+                    @csrf
+                    <input type="text" name="search" class="p-2 rounded-lg" placeholder="{{ __('layout.search') }}" style="color: black; margin-right: 5px;" value="{{ request('search') }}">
+                    <button type="submit" class="p-2 rounded-lg bg-gray-700 hover:bg-gray-600">{{ __('layout.search') }}</button>
+                </form>
+            </div>
+
+            <!-- Welcome -->
             <div class="flex space-x-4 items-center">
                 @auth
                     <a href="{{ url(app()->getLocale()) . '/posts/create' }}" class="text-lg font-semibold">{{ __('layout.post') }}</a>

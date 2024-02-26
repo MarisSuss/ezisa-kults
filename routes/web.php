@@ -9,6 +9,7 @@ use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SearchController;
 
 // Redirect to the default language
 Route::get('/', function () {
@@ -23,6 +24,9 @@ Route::group(['prefix' => '{language}'], function () {
 
     // Home page
     Route::get('/', HomeController::class);
+
+    // Search
+    Route::get('search', [SearchController::class, '__invoke']);
 
     // Registration
     Route::get('register', [RegistrationController::class, 'create'])->middleware('guest');
