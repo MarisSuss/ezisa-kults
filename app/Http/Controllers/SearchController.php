@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Post;
 
 class SearchController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke()
     {
         return view('search.index', [
-            'posts' => Post::filter([
-                'search' => $request->search,
+            'posts' => Post::latest()->filter([
+                'search' => request('search'),
+                'category' => request('category'),
+                'currentCategory' => Category::firstWhere('slug', request('category'))
             ])->get(),
-            'search' => $request->search,
+            'search' => request('search')
         ]);
     }
 }
